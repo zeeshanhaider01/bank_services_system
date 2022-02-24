@@ -1,11 +1,11 @@
-from account_record import *
+# from account_record import *
 from creat_acont import creat_acount 
 from sign_in import sign_in
 from clear_console import *
 clearConsole()
 print("Welcome to PAK Bank".center(os.get_terminal_size().columns," "))
 print("                     ")
-json_read()
+# json_read()
 # print("acount_record: ",acount_record)
 will=True
 while will:
@@ -29,7 +29,7 @@ while will:
         creat_acount()
     
     elif want=="3":
-        json_write()
+        # json_write()
         # print("                     acount_record: ",acount_record)
         clearConsole()
         print("Welcome to PAK Bank".center(os.get_terminal_size().columns," "))
