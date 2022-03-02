@@ -1,4 +1,3 @@
-# from account_record import *
 from creat_acont import creat_acount 
 from sign_in import sign_in
 from clear_console import *

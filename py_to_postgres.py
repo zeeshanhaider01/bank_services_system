@@ -1,12 +1,6 @@
-from ast import Return
-from asyncio.windows_events import NULL
-from tkinter import EXCEPTION
-from typing import final
-from unittest import skip
 from clear_console import *
 import psycopg2
-
-from date_time import *
+from tabulate import tabulate
 
 def check_login_prsnt(login):
         conn=psycopg2.connect("dbname=postgres user=postgres password=zeeshan,09")
@@ -108,7 +102,6 @@ def set_record_transaction(login,trans_typ,amount):
         val="account debited"
     elif trans_typ=="credit":
         val="account credited"
-    # string="INSERT INTO user_history (personid, datetime,login_out,transaction_type,amount,remaining_balance) VALUES ('{p}','{dt}','{log}',{tt},{am},{rb});".format(p=login,dt,log=val,tt=NULL,am=NULL,rb=get_balnc(login))
     string="INSERT INTO user_history (personid,transaction_type,amount,remaining_balance) VALUES ('{}','{}',{},{});".format(login,val,amount,get_balnc(login))
     cur.execute(string)
     conn.commit()
@@ -118,15 +111,22 @@ def set_record_transaction(login,trans_typ,amount):
 def user_history(login):
     conn=psycopg2.connect("dbname=postgres user=postgres password=zeeshan,09")
     cur=conn.cursor()
-    # string="INSERT INTO user_history (personid, datetime,login_out,transaction_type,amount,remaining_balance) VALUES ('{p}','{dt}','{log}',{tt},{am},{rb});".format(p=login,dt,log=val,tt=NULL,am=NULL,rb=get_balnc(login))
     string="select * from user_history where personid='{}'".format(login)
     cur.execute(string)
     conn.commit()
-    clearConsole()
-    print("Welcome to PAK Bank".center(os.get_terminal_size().columns," "))
-    print("                     ")
+    record=[]
+    heads=["                     ","User ID","Date(Y/M/D) Time(H/M/S)","Login/out","Transaction Type","Amount","Remaining Balance","                     "]
     for item in cur.fetchall():
-        print("                     record: ",item) #21spaces before record
+        arr=["                     "]
+        arr.extend(item)
+        spc=["                     "]
+        arr.extend(spc)
+        record.append(arr)
+    # for item in cur.fetchall():
+    #     record.append(item)
+    print(tabulate(record,headers=heads))
+        # print("                     record: ",item) #21spaces before record
+
     cur.close()
     conn.close()
 
