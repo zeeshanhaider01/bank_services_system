@@ -1,5 +1,5 @@
 from creat_acont import creat_acount 
-from sign_in import sign_in
+from sign_in import signin
 from clear_console import *
 clearConsole()
 print("Welcome to PAK Bank".center(os.get_terminal_size().columns," "))
@@ -19,7 +19,8 @@ while will:
         clearConsole()
         print("Welcome to PAK Bank".center(os.get_terminal_size().columns," "))
         print("                     ")
-        sign_in()
+        obj=signin()
+        obj.signinfunc()
 
     elif  want=="2":
         clearConsole()
